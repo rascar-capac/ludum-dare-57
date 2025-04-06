@@ -77,10 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d44481c0e69414a8e2fa986f337140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _crystalIndex: 0
   _shapeCenter: {fileID: 1886876886636024072}
   _distanceMinMax: {x: 3.5, y: 4.5}
   _aimTolerance: 1
   _angleTolerance: 7
+  _almostRatio: 0.2
 --- !u!1001 &1858608098612403032
 PrefabInstance:
   m_ObjectHideFlags: 0
