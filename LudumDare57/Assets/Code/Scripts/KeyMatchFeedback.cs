@@ -4,8 +4,9 @@ public class KeyMatchFeedback : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
     [SerializeField] private Animator _animator;
+    [SerializeField] private FullScreenPassRendererFeature _nearMatchScorePostProcess;
 
-    private MaterialPropertyBlock _block;
+    private MaterialPropertyBlock _keyblock;
     private KeyMatcher _currentMatcher;
     private float _currentScore;
 
@@ -24,10 +25,12 @@ public class KeyMatchFeedback : MonoBehaviour
             }
         }
 
-        _block ??= new();
-        _renderer.GetPropertyBlock(_block);
-        _block.SetFloat("_NearMatchScore", _currentScore);
-        _renderer.SetPropertyBlock(_block);
+        _keyblock ??= new();
+        _renderer.GetPropertyBlock(_keyblock);
+        _keyblock.SetFloat("_NearMatchScore", _currentScore);
+        _renderer.SetPropertyBlock(_keyblock);
+
+        _nearMatchScorePostProcess.passMaterial.SetFloat("_NearMatchScore", _currentScore);
     }
 
     public void PlayMatchFeedback()

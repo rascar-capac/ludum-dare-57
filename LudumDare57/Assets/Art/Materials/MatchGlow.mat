@@ -49,13 +49,13 @@ Material:
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 10
-    - _EmissionMaxMultiplier: 3
+    - _EmissionMaxMultiplier: 5
     - _Match: 0
     - _Metallic: 0
     - _MinMatchForEmission: 0.6666667
     - _MinScoreForEmission: 0.6666667
     - _NearMatchScore: 0
-    - _NearMatchScoreInterference: 10
+    - _NearMatchScoreInterference: 5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1

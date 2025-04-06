@@ -71,7 +71,8 @@ MonoBehaviour:
   - {fileID: 3779012482235802866}
   - {fileID: -6475304085248660979}
   - {fileID: 6851948148075693280}
-  m_RendererFeatureMap: ad6b866f10d7b46cf2a46e9dd4bf71340d2a1efa3d1923a6e08472998902175f
+  - {fileID: 6048996230149241446}
+  m_RendererFeatureMap: ad6b866f10d7b46cf2a46e9dd4bf71340d2a1efa3d1923a6e08472998902175f66fab8b9055af253
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -139,6 +140,26 @@ MonoBehaviour:
       restoreCamera: 1
       offset: {x: 0, y: 0, z: 0, w: 0}
       cameraFieldOfView: 80
+--- !u!114 &6048996230149241446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00045f12942b46c698459096c89274e, type: 3}
+  m_Name: NearMatchScoreFullscreen
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  injectionPoint: 450
+  fetchColorBuffer: 1
+  requirements: 0
+  passMaterial: {fileID: -876546973899608171, guid: 826eea0199edc9246b9e3a3ed1c07a2c, type: 3}
+  passIndex: 0
+  bindDepthStencilAttachment: 0
+  m_Version: 1
 --- !u!114 &6851948148075693280
 MonoBehaviour:
   m_ObjectHideFlags: 0

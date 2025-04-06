@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 2387205268100773650}
   _animator: {fileID: 4355273215639814504}
+  _nearMatchScorePostProcess: {fileID: 6048996230149241446, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!95 &4355273215639814504
 Animator:
   serializedVersion: 7
