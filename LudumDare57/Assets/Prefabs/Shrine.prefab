@@ -82,7 +82,10 @@ MonoBehaviour:
   _distanceMinMax: {x: 3.5, y: 4.5}
   _aimTolerance: 1
   _angleTolerance: 7
-  _almostRatio: 0.2
+  _almostRatios:
+    Distance: 1
+    Aim: 10
+    Angle: 1
 --- !u!1001 &1858608098612403032
 PrefabInstance:
   m_ObjectHideFlags: 0

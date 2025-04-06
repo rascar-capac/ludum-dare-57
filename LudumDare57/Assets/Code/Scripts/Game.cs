@@ -12,10 +12,11 @@ public class Game : MonoBehaviour
     public static Transform Player => _instance._player;
     public static Transform Camera => _instance._camera;
     public static KeyMatchManager KeyMatchManager => _instance._keyMatchManager;
+    public static KeyMatchFeedback KeyMatchFeedback => _instance._keyMatchFeedback;
 
-    public static void RegisterKeyMatchScore(float score)
+    public static void RegisterKeyNearMatchScore(float score, KeyMatcher matcher)
     {
-        _instance._keyMatchFeedback.SetMatchScore(score);
+        _instance._keyMatchFeedback.SetNearMatchScore(score, matcher);
     }
 
     private void Awake()

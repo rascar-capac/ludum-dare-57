@@ -7,5 +7,6 @@ public class KeyMatchManager : MonoBehaviour
     public void ValidateMatch(int crystalIndex)
     {
         _crystalsHolder.ActivateCrystal(crystalIndex);
+        Game.KeyMatchFeedback.PlayMatchFeedback();
     }
 }

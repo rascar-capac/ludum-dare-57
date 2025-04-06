@@ -52,7 +52,10 @@ Material:
     - _EmissionMaxMultiplier: 3
     - _Match: 0
     - _Metallic: 0
-    - _MinMatchForEmission: 0.7
+    - _MinMatchForEmission: 0.6666667
+    - _MinScoreForEmission: 0.6666667
+    - _NearMatchScore: 0
+    - _NearMatchScoreInterference: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
