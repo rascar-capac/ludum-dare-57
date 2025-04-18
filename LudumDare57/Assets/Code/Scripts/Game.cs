@@ -16,7 +16,7 @@ public class Game : MonoBehaviour
 
     public static void RegisterKeyNearMatchScore(float score, KeyMatcher matcher)
     {
-        _instance._keyMatchFeedback.SetNearMatchScore(score, matcher);
+        _instance._keyMatchFeedback.SetFeedbackIntensity(score, matcher);
     }
 
     private void Awake()
