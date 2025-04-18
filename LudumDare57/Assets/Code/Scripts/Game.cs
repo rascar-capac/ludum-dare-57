@@ -14,11 +14,6 @@ public class Game : MonoBehaviour
     public static KeyMatchManager KeyMatchManager => _instance._keyMatchManager;
     public static KeyMatchFeedback KeyMatchFeedback => _instance._keyMatchFeedback;
 
-    public static void RegisterKeyNearMatchScore(float score, KeyMatcher matcher)
-    {
-        _instance._keyMatchFeedback.SetFeedbackIntensity(score, matcher);
-    }
-
     private void Awake()
     {
         _instance = this;

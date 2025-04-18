@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -11,6 +12,7 @@ public class KeyMatchFeedback : MonoBehaviour
     [SerializeField] private Volume _volume;
     [SerializeField] private VolumeProfile _defaultVolumeProfile;
     [SerializeField] private VolumeProfile _nearMatchVolumeProfile;
+    [SerializeField] private float _matchFadeOutDuration;
 
     private MaterialPropertyBlock _keyblock;
     private KeyMatcher _currentMatcher;
@@ -39,9 +41,17 @@ public class KeyMatchFeedback : MonoBehaviour
         UpdateNearMatchFeedbacks();
     }
 
-    public void PlayMatchFeedback()
+    public void PlayMatchFeedback(KeyMatcher matcher)
     {
         _animator.SetTrigger("match");
+
+        DOTween.Sequence()
+            .Join(_keyRenderer.material.DOFloat(0f, "_NearMatchIntensity", _matchFadeOutDuration))
+            .Join(_nearMatchScoreContrastPP.passMaterial.DOFloat(0f, "_NearMatchIntensity", _matchFadeOutDuration))
+            .Join(DOTween.To(() => _activeVolumeProfileProperties.Bloom.intensity.value, x => _activeVolumeProfileProperties.Bloom.intensity.value = x, _defaultVolumeProfileProperties.Bloom.intensity.value, _matchFadeOutDuration))
+            .Join(DOTween.To(() => _activeVolumeProfileProperties.Vignette.intensity.value, x => _activeVolumeProfileProperties.Vignette.intensity.value = x, _defaultVolumeProfileProperties.Vignette.intensity.value, _matchFadeOutDuration))
+            .Join(DOTween.To(() => _activeVolumeProfileProperties.LensDistortion.intensity.value, x => _activeVolumeProfileProperties.LensDistortion.intensity.value = x, _defaultVolumeProfileProperties.LensDistortion.intensity.value, _matchFadeOutDuration))
+            .OnComplete(() => Game.KeyMatchFeedback.SetFeedbackIntensity(0f, matcher));
     }
 
     private void UpdateNearMatchFeedbacks()

@@ -50,9 +50,10 @@ MonoBehaviour:
   _animator: {fileID: 4355273215639814504}
   _minScoreForFeedback: 0.6666667
   _nearMatchScoreContrastPP: {fileID: 6048996230149241446, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
-  _activeVolumeProfile: {fileID: 11400000, guid: 071b4ec4e6b58694b9e36f73b0e2274f, type: 2}
+  _volume: {fileID: 0}
   _defaultVolumeProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
   _nearMatchVolumeProfile: {fileID: 11400000, guid: 281807085bc6dc34cbed6211a5354f72, type: 2}
+  _matchFadeOutDuration: 1
 --- !u!95 &4355273215639814504
 Animator:
   serializedVersion: 7

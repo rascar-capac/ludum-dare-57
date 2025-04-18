@@ -55,12 +55,11 @@ public class KeyMatcher : MonoBehaviour
 
         keyNearMatchScore /= 3;
 
-        Game.RegisterKeyNearMatchScore(keyNearMatchScore, this);
+        Game.KeyMatchFeedback.SetFeedbackIntensity(keyNearMatchScore, this);
 
         if (_aimIsValid && _distanceIsValid && _angleIsValid)
         {
-            Game.KeyMatchManager.ValidateMatch(_crystalIndex);
-            Game.RegisterKeyNearMatchScore(0f, this);
+            Game.KeyMatchManager.ValidateMatch(_crystalIndex, this);
             _isValidated = true;
         }
     }
