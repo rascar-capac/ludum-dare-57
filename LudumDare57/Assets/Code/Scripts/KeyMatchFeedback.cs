@@ -13,6 +13,7 @@ public class KeyMatchFeedback : MonoBehaviour
     [SerializeField] private VolumeProfile _defaultVolumeProfile;
     [SerializeField] private VolumeProfile _nearMatchVolumeProfile;
     [SerializeField] private float _matchFadeOutDuration;
+    [SerializeField] private ParticleSystem _matchVFX;
 
     private MaterialPropertyBlock _keyblock;
     private KeyMatcher _currentMatcher;
@@ -52,6 +53,11 @@ public class KeyMatchFeedback : MonoBehaviour
             .Join(DOTween.To(() => _activeVolumeProfileProperties.Vignette.intensity.value, x => _activeVolumeProfileProperties.Vignette.intensity.value = x, _defaultVolumeProfileProperties.Vignette.intensity.value, _matchFadeOutDuration))
             .Join(DOTween.To(() => _activeVolumeProfileProperties.LensDistortion.intensity.value, x => _activeVolumeProfileProperties.LensDistortion.intensity.value = x, _defaultVolumeProfileProperties.LensDistortion.intensity.value, _matchFadeOutDuration))
             .OnComplete(() => Game.KeyMatchFeedback.SetFeedbackIntensity(0f, matcher));
+    }
+
+    public void TriggerMatchVFX()
+    {
+        _matchVFX.Play();
     }
 
     private void UpdateNearMatchFeedbacks()
