@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe78dab82e8716c458503cc6ad3aab88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelHeight: 4
+  _playerDetectionDelay: 2
+  _height: 4
   _travelTime: 3
   _easeType: 10
+  _collider: {fileID: 8878887771164973253}
 --- !u!1001 &3957956578517181774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108,5 +110,10 @@ PrefabInstance:
 --- !u!4 &3431918928853506166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1823355989256011064, guid: 6c51532d7268c594eb6b1b073735fd22, type: 3}
+  m_PrefabInstance: {fileID: 3957956578517181774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8878887771164973253 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 5608487776983383435, guid: 6c51532d7268c594eb6b1b073735fd22, type: 3}
   m_PrefabInstance: {fileID: 3957956578517181774}
   m_PrefabAsset: {fileID: 0}
