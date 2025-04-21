@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe78dab82e8716c458503cc6ad3aab88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDetectionDelay: 2
+  _playerDetectionDelay: 1.5
   _height: 4
   _travelTime: 3
   _easeType: 10
   _collider: {fileID: 8878887771164973253}
+  _minimumCameraAngleToTrigger: 20
 --- !u!1001 &3957956578517181774
 PrefabInstance:
   m_ObjectHideFlags: 0
