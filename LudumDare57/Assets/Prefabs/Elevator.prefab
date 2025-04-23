@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDetectionDelay: 1.5
   _height: 4
-  _travelTime: 3
+  _metersPerSecond: 2
   _easeType: 10
   _collider: {fileID: 8878887771164973253}
   _minimumCameraAngleToTrigger: 20
