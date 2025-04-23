@@ -22,6 +22,12 @@ public class Elevator : MonoBehaviour
     {
         _isMoving = true;
         SetWallCollidersEnabled(true);
+
+        foreach (Collider wall in _walls)
+        {
+            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+        }
+
         DOTween.Sequence()
             .Join(transform.DOLocalMoveY(transform.position.y + _height, _height / _metersPerSecond).SetEase(_easeType))
             .Join(Game.Player.DOLocalMoveY(Game.Player.position.y + _height, _height / _metersPerSecond).SetEase(_easeType))
@@ -32,6 +38,12 @@ public class Elevator : MonoBehaviour
     {
         _isMoving = true;
         SetWallCollidersEnabled(true);
+
+        foreach (Collider wall in _walls)
+        {
+            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+        }
+
         DOTween.Sequence()
             .Join(transform.DOLocalMoveY(transform.position.y - _height, _height / _metersPerSecond).SetEase(_easeType))
             .Join(Game.Player.DOLocalMoveY(Game.Player.position.y - _height, _height / _metersPerSecond).SetEase(_easeType))
@@ -42,6 +54,11 @@ public class Elevator : MonoBehaviour
     {
         _isMoving = false;
         SetWallCollidersEnabled(false);
+
+        foreach (Collider wall in _walls)
+        {
+            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
+        }
     }
 
     private void CheckPlayerPosition()
@@ -99,23 +116,35 @@ public class Elevator : MonoBehaviour
 
     private void SetWallsVisible(bool active)
     {
-        Sequence sequence = DOTween.Sequence();
-
         foreach (Collider wall in _walls)
         {
-            wall.gameObject.SetActive(active);
-            sequence.Join(wall.GetComponent<Renderer>().material.DOFloat(active ? 1f : 0f, "_DirectionFeedbackOpacityFactor", _wallFadeDuration));
+            Tween tween = wall.GetComponent<Renderer>().material.DOFloat(active ? 1f : 0f, "_DirectionFeedback_OpacityFactor", _wallFadeDuration).SetEase(Ease.Linear);
+
+            if (active)
+            {
+                wall.gameObject.SetActive(true);
+            }
+            else
+            {
+                tween.OnComplete(() => wall.gameObject.SetActive(false));
+            }
         }
     }
 
     private void SetWallCollidersEnabled(bool enabled)
     {
-        Sequence sequence = DOTween.Sequence();
-
         foreach (Collider wall in _walls)
         {
-            wall.enabled = enabled;
-            sequence.Join(wall.GetComponent<Renderer>().material.DOFloat(enabled ? 1f : 0f, "_OpacityFactor", _wallFadeDuration));
+            Tween tween = wall.GetComponent<Renderer>().material.DOFloat(enabled ? 1f : 0f, "_OpacityFactor", _wallFadeDuration);
+
+            if (enabled)
+            {
+                wall.enabled = true;
+            }
+            else
+            {
+                tween.OnComplete(() => wall.enabled = false);
+            }
         }
     }
 
@@ -129,7 +158,7 @@ public class Elevator : MonoBehaviour
             Material material = wall.GetComponent<Renderer>().material;
             material.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);
             material.SetFloat("_OpacityFactor", 0f);
-            material.SetFloat("_DirectionFeedbackOpacityFactor", 0f);
+            material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
         }
     }
 
