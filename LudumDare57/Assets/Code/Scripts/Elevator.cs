@@ -103,6 +103,10 @@ public class Elevator : MonoBehaviour
                     _playerTimer = 0f;
                 }
             }
+            else
+            {
+                _playerTimer = 0f;
+            }
 
             _lastCameraAngleIsUp = isLookingUp;
         }
