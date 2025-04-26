@@ -302,6 +302,7 @@ Transform:
   m_Children:
   - {fileID: 3431918928853506166}
   - {fileID: 4127178652768356303}
+  - {fileID: 7646767662085364634}
   - {fileID: 5779630506364141886}
   - {fileID: 59063176000907244}
   - {fileID: 4546304856963995390}
@@ -310,7 +311,6 @@ Transform:
   - {fileID: 2525387039516215696}
   - {fileID: 8230563784321233723}
   - {fileID: 8485681635788052684}
-  - {fileID: 7646767662085364634}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8878312976300058911
@@ -326,7 +326,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerDetectionDelay: 1.5
-  _height: 4
+  _levelHeights:
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  - 24
+  - 4
+  - 4
+  - 4
+  - 4
+  _startingLevelIndex: 0
   _metersPerSecond: 2
   _easeType: 10
   _collider: {fileID: 8878887771164973253}
@@ -574,14 +585,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3189151294401651657}
     m_Modifications:
-    - target: {fileID: 5714414327750779930, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5714414327750779930, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b45598e5e07c6de4eb05dbd52d035e7a, type: 2}
     - target: {fileID: 6074601624801854927, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
       propertyPath: m_Name
       value: ElevatorWalls

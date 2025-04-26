@@ -5,7 +5,8 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     [SerializeField] private float _playerDetectionDelay;
-    [SerializeField] private float _height;
+    [SerializeField] private List<float> _levelHeights;
+    [SerializeField] private int _startingLevelIndex;
     [SerializeField] private float _metersPerSecond;
     [SerializeField] private Ease _easeType;
     [SerializeField] private Collider _collider;
@@ -19,9 +20,21 @@ public class Elevator : MonoBehaviour
     private bool _wasLookingUp;
     private bool _wasLookingDown;
     private bool _isMoving;
+    private int _levelIndex;
 
     private void MoveUp()
     {
+        _levelIndex--;
+
+        if (_levelIndex == _levelHeights.Count)
+        {
+            _levelIndex = 0;
+        }
+        else if (_levelIndex == -1)
+        {
+            _levelIndex = _levelHeights.Count - 1;
+        }
+
         _isMoving = true;
         SetWallCollidersActive(true);
         Game.Player.GetComponent<CharacterController>().enabled = false;
@@ -29,13 +42,24 @@ public class Elevator : MonoBehaviour
         _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
 
         DOTween.Sequence()
-            .Join(transform.DOLocalMoveY(transform.position.y + _height, _height / _metersPerSecond).SetEase(_easeType))
-            .Join(Game.Player.DOLocalMoveY(Game.Player.position.y + _height, _height / _metersPerSecond).SetEase(_easeType))
+            .Join(transform.DOLocalMoveY(transform.position.y + _levelHeights[_levelIndex - 1], _levelHeights[_levelIndex - 1] / _metersPerSecond).SetEase(_easeType))
+            .Join(Game.Player.DOLocalMoveY(Game.Player.position.y + _levelHeights[_levelIndex - 1], _levelHeights[_levelIndex - 1] / _metersPerSecond).SetEase(_easeType))
             .OnComplete(Stop);
     }
 
     private void MoveDown()
     {
+        _levelIndex++;
+
+        if (_levelIndex == _levelHeights.Count)
+        {
+            _levelIndex = 0;
+        }
+        else if (_levelIndex == -1)
+        {
+            _levelIndex = _levelHeights.Count - 1;
+        }
+
         _isMoving = true;
         SetWallCollidersActive(true);
         Game.Player.GetComponent<CharacterController>().enabled = false;
@@ -43,8 +67,8 @@ public class Elevator : MonoBehaviour
         _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
 
         DOTween.Sequence()
-            .Join(transform.DOLocalMoveY(transform.position.y - _height, _height / _metersPerSecond).SetEase(_easeType))
-            .Join(Game.Player.DOLocalMoveY(Game.Player.position.y - _height, _height / _metersPerSecond).SetEase(_easeType))
+            .Join(transform.DOLocalMoveY(transform.position.y - _levelHeights[_levelIndex], _levelHeights[_levelIndex] / _metersPerSecond).SetEase(_easeType))
+            .Join(Game.Player.DOLocalMoveY(Game.Player.position.y - _levelHeights[_levelIndex], _levelHeights[_levelIndex] / _metersPerSecond).SetEase(_easeType))
             .OnComplete(Stop);
     }
 
@@ -137,6 +161,8 @@ public class Elevator : MonoBehaviour
 
     private void Awake()
     {
+        _levelIndex = _startingLevelIndex;
+
         for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
         {
             _wallRenderer.material.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);

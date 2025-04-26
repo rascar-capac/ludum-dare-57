@@ -56,7 +56,7 @@ Material:
     - _DirectionFeedback_DistortionIntensity: 0.05
     - _DirectionFeedback_DistortionScale: 3
     - _DirectionFeedback_FlashSpeed: 10
-    - _DirectionFeedback_Height: 1
+    - _DirectionFeedback_Height: 0.4
     - _DirectionFeedback_OpacityFactor: 1
     - _DirectionFeedback_Scale: 50
     - _DirectionFeedback_Speed: 0.4
