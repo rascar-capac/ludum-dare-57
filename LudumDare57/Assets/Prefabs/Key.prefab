@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff8ae219e16016478a250d34160978b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keyRenderer: {fileID: 3541937007230797410}
+  _keyRenderer: {fileID: 8842646717617570708}
   _animator: {fileID: 4355273215639814504}
   _minScoreForFeedback: 0.6666667
   _nearMatchScoreContrastPP: {fileID: 6048996230149241446, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
@@ -129,6 +129,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visuals
       objectReference: {fileID: 0}
+    - target: {fileID: 5269937127626395803, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 959b883f74d478f45b5f64154f18ba79, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -139,13 +143,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1367308259699748354, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
   m_PrefabInstance: {fileID: 3717149418538849039}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &3541937007230797410 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 194370851691533677, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
-  m_PrefabInstance: {fileID: 3717149418538849039}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5469610557109300210 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8679002048088717565, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
+  m_PrefabInstance: {fileID: 3717149418538849039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8842646717617570708 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5269937127626395803, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
   m_PrefabInstance: {fileID: 3717149418538849039}
   m_PrefabAsset: {fileID: 0}
