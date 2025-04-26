@@ -8,11 +8,15 @@ public class Game : MonoBehaviour
     [SerializeField] private Transform _camera;
     [SerializeField] private KeyMatchManager _keyMatchManager;
     [SerializeField] private KeyMatchFeedback _keyMatchFeedback;
+    [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private Elevator _elevator;
 
     public static Transform Player => _instance._player;
     public static Transform Camera => _instance._camera;
     public static KeyMatchManager KeyMatchManager => _instance._keyMatchManager;
     public static KeyMatchFeedback KeyMatchFeedback => _instance._keyMatchFeedback;
+    public static LevelManager LevelManager => _instance._levelManager;
+    public static Elevator Elevator => _instance._elevator;
 
     private void Awake()
     {
