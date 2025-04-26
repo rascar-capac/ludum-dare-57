@@ -28,7 +28,7 @@ public class FPVMoveController : MonoBehaviour
         Vector3 xMovement = _moveInput.action.ReadValue<Vector2>().x * _transform.right;
         Vector3 zMovement = _moveInput.action.ReadValue<Vector2>().y * _transform.forward;
         Vector3 movement = (xMovement + zMovement) * _metersPerSecond;
-        if (_characterController)
+        if (_characterController && _characterController.enabled)
         {
             _characterController.SimpleMove(movement);
         }

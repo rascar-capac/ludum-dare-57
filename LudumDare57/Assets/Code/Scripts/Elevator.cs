@@ -24,6 +24,7 @@ public class Elevator : MonoBehaviour
     {
         _isMoving = true;
         SetWallCollidersActive(true);
+        Game.Player.GetComponent<CharacterController>().enabled = false;
 
         _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
 
