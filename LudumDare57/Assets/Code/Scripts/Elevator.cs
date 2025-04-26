@@ -10,7 +10,8 @@ public class Elevator : MonoBehaviour
     [SerializeField] private Ease _easeType;
     [SerializeField] private Collider _collider;
     [SerializeField] private float _minimumCameraAngleToTrigger;
-    [SerializeField] private List<Collider> _walls;
+    [SerializeField] private List<GameObject> _walls;
+    [SerializeField] private Renderer _wallRenderer;
     [SerializeField] private float _wallFadeDuration;
 
     private float _playerTimer;
@@ -18,17 +19,13 @@ public class Elevator : MonoBehaviour
     private bool _wasLookingUp;
     private bool _wasLookingDown;
     private bool _isMoving;
-    private readonly List<Material> _wallMaterials = new();
 
     private void MoveUp()
     {
         _isMoving = true;
-        SetWallCollidersEnabled(true);
+        SetWallCollidersActive(true);
 
-        foreach (Material wall in _wallMaterials)
-        {
-            wall.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
-        }
+        _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
 
         DOTween.Sequence()
             .Join(transform.DOLocalMoveY(transform.position.y + _height, _height / _metersPerSecond).SetEase(_easeType))
@@ -39,12 +36,10 @@ public class Elevator : MonoBehaviour
     private void MoveDown()
     {
         _isMoving = true;
-        SetWallCollidersEnabled(true);
+        SetWallCollidersActive(true);
+        Game.Player.GetComponent<CharacterController>().enabled = false;
 
-        foreach (Material wall in _wallMaterials)
-        {
-            wall.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
-        }
+        _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
 
         DOTween.Sequence()
             .Join(transform.DOLocalMoveY(transform.position.y - _height, _height / _metersPerSecond).SetEase(_easeType))
@@ -54,13 +49,11 @@ public class Elevator : MonoBehaviour
 
     private void Stop()
     {
+        Game.Player.GetComponent<CharacterController>().enabled = true;
         _isMoving = false;
-        SetWallCollidersEnabled(false);
+        SetWallCollidersActive(false);
 
-        foreach (Material wall in _wallMaterials)
-        {
-            wall.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
-        }
+        _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
     }
 
     private void CheckPlayerPosition()
@@ -86,10 +79,7 @@ public class Elevator : MonoBehaviour
             {
                 _playerTimer = 0f;
 
-                foreach (Material material in _wallMaterials)
-                {
-                    material.SetFloat("_DirectionFeedback_FlashStartTime", Time.time);
-                }
+                _wallRenderer.material.SetFloat("_DirectionFeedback_FlashStartTime", Time.time);
             }
 
             if (isLookingDown || isLookingUp)
@@ -124,47 +114,23 @@ public class Elevator : MonoBehaviour
 
     private void SetWallsVisible(bool active)
     {
-        Sequence sequence = DOTween.Sequence();
+        _wallRenderer.material.DOFloat(active ? 1f : 0f, "_DirectionFeedback_OpacityFactor", _wallFadeDuration).SetEase(Ease.Linear);
+    }
 
-        for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
+    private void SetWallCollidersActive(bool active)
+    {
+        Tween tween = _wallRenderer.material.DOFloat(active ? 1f : 0f, "_OpacityFactor", _wallFadeDuration);
+
+        if (active)
         {
-            Tween tween = _wallMaterials[wallIndex].DOFloat(active ? 1f : 0f, "_DirectionFeedback_OpacityFactor", _wallFadeDuration).SetEase(Ease.Linear);
-
-            GameObject wall = _walls[wallIndex].gameObject;
-
-            if (active)
+            foreach (GameObject wall in _walls)
             {
                 wall.SetActive(true);
             }
-            else
-            {
-                tween.OnComplete(() => wall.SetActive(false));
-            }
-
-            sequence.Join(tween);
         }
-    }
-
-    private void SetWallCollidersEnabled(bool enabled)
-    {
-        Sequence sequence = DOTween.Sequence();
-
-        for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
+        else
         {
-            Tween tween = _wallMaterials[wallIndex].DOFloat(enabled ? 1f : 0f, "_OpacityFactor", _wallFadeDuration);
-
-            Collider wall = _walls[wallIndex];
-
-            if (enabled)
-            {
-                wall.enabled = true;
-            }
-            else
-            {
-                tween.OnComplete(() => wall.enabled = false);
-            }
-
-            sequence.Join(tween);
+            tween.OnComplete(() => _walls.ForEach(wall => wall.SetActive(false)));
         }
     }
 
@@ -172,15 +138,13 @@ public class Elevator : MonoBehaviour
     {
         for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
         {
-            Material wallMaterial = _walls[wallIndex].GetComponent<Renderer>().material;
-            _wallMaterials.Add(wallMaterial);
-            wallMaterial.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);
-            wallMaterial.SetFloat("_OpacityFactor", 0f);
-            wallMaterial.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+            _wallRenderer.material.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);
+            _wallRenderer.material.SetFloat("_OpacityFactor", 0f);
+            _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
         }
 
         SetWallsVisible(false);
-        SetWallCollidersEnabled(false);
+        SetWallCollidersActive(false);
     }
 
     private void Update()

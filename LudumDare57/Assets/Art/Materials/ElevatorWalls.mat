@@ -54,12 +54,12 @@ Material:
     - _DirectionFeedbackOpacityFactor: 1
     - _DirectionFeedbackSpeed: 0.5
     - _DirectionFeedback_DistortionIntensity: 0.05
-    - _DirectionFeedback_DistortionScale: 5
-    - _DirectionFeedback_FlashSpeed: 7
+    - _DirectionFeedback_DistortionScale: 3
+    - _DirectionFeedback_FlashSpeed: 10
     - _DirectionFeedback_Height: 1
     - _DirectionFeedback_OpacityFactor: 1
-    - _DirectionFeedback_Scale: 170
-    - _DirectionFeedback_Speed: 0.075
+    - _DirectionFeedback_Scale: 50
+    - _DirectionFeedback_Speed: 0.4
     - _DirectionFeedback_StartAngle: 5
     - _FadeRatio: 0.2
     - _Intersection_Size: 0.96
@@ -72,13 +72,13 @@ Material:
     - _ScrollingSpeed2: 0
     - _SwirlsSize: 20
     - _SwirlsSpeed: 0.05
-    - _Swirls_Size: 38.42
+    - _Swirls_Size: 15
     - _Swirls_Speed: 0.05
     - _TriggeringCameraAngle: 30
     m_Colors:
     - _Color: {r: 0.41037738, g: 0.78894687, b: 1, a: 0}
     - _MinMaxDistanceForOpacity: {r: 0.5, g: 2, b: 0, a: 0}
     - _MinMaxOpacity: {r: 0.02, g: 0.2, b: 0, a: 0}
-    - _Tiling: {r: 0.2512563, g: 0.2631579, b: 0, a: 0}
+    - _Tiling: {r: 4, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
