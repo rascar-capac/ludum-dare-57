@@ -13,19 +13,21 @@ public class Elevator : MonoBehaviour
     [SerializeField] private List<Collider> _walls;
     [SerializeField] private float _wallFadeDuration;
 
-    float _playerTimer;
-    bool _playerIsInElevator;
-    bool _lastCameraAngleIsUp;
-    bool _isMoving;
+    private float _playerTimer;
+    private bool _playerIsInElevator;
+    private bool _wasLookingUp;
+    private bool _wasLookingDown;
+    private bool _isMoving;
+    private readonly List<Material> _wallMaterials = new();
 
     private void MoveUp()
     {
         _isMoving = true;
         SetWallCollidersEnabled(true);
 
-        foreach (Collider wall in _walls)
+        foreach (Material wall in _wallMaterials)
         {
-            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+            wall.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
         }
 
         DOTween.Sequence()
@@ -39,9 +41,9 @@ public class Elevator : MonoBehaviour
         _isMoving = true;
         SetWallCollidersEnabled(true);
 
-        foreach (Collider wall in _walls)
+        foreach (Material wall in _wallMaterials)
         {
-            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+            wall.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
         }
 
         DOTween.Sequence()
@@ -55,9 +57,9 @@ public class Elevator : MonoBehaviour
         _isMoving = false;
         SetWallCollidersEnabled(false);
 
-        foreach (Collider wall in _walls)
+        foreach (Material wall in _wallMaterials)
         {
-            wall.GetComponent<Renderer>().material.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
+            wall.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
         }
     }
 
@@ -80,13 +82,18 @@ public class Elevator : MonoBehaviour
             bool isLookingUp = Game.Camera.localEulerAngles.x > 180f && Game.Camera.localEulerAngles.x < 360f - _minimumCameraAngleToTrigger;
             bool isLookingDown = Game.Camera.localEulerAngles.x < 180f && Game.Camera.localEulerAngles.x > _minimumCameraAngleToTrigger;
 
+            if (isLookingUp && !_wasLookingUp || isLookingDown && !_wasLookingDown)
+            {
+                _playerTimer = 0f;
+
+                foreach (Material material in _wallMaterials)
+                {
+                    material.SetFloat("_DirectionFeedback_FlashStartTime", Time.time);
+                }
+            }
+
             if (isLookingDown || isLookingUp)
             {
-                if (isLookingDown && _lastCameraAngleIsUp)
-                {
-                    _playerTimer = 0;
-                }
-
                 _playerTimer += Time.deltaTime;
 
                 if (_playerTimer > _playerDetectionDelay)
@@ -103,12 +110,9 @@ public class Elevator : MonoBehaviour
                     _playerTimer = 0f;
                 }
             }
-            else
-            {
-                _playerTimer = 0f;
-            }
 
-            _lastCameraAngleIsUp = isLookingUp;
+            _wasLookingUp = isLookingUp;
+            _wasLookingDown = isLookingDown;
         }
         else if (_playerIsInElevator)
         {
@@ -120,26 +124,36 @@ public class Elevator : MonoBehaviour
 
     private void SetWallsVisible(bool active)
     {
-        foreach (Collider wall in _walls)
+        Sequence sequence = DOTween.Sequence();
+
+        for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
         {
-            Tween tween = wall.GetComponent<Renderer>().material.DOFloat(active ? 1f : 0f, "_DirectionFeedback_OpacityFactor", _wallFadeDuration).SetEase(Ease.Linear);
+            Tween tween = _wallMaterials[wallIndex].DOFloat(active ? 1f : 0f, "_DirectionFeedback_OpacityFactor", _wallFadeDuration).SetEase(Ease.Linear);
+
+            GameObject wall = _walls[wallIndex].gameObject;
 
             if (active)
             {
-                wall.gameObject.SetActive(true);
+                wall.SetActive(true);
             }
             else
             {
-                tween.OnComplete(() => wall.gameObject.SetActive(false));
+                tween.OnComplete(() => wall.SetActive(false));
             }
+
+            sequence.Join(tween);
         }
     }
 
     private void SetWallCollidersEnabled(bool enabled)
     {
-        foreach (Collider wall in _walls)
+        Sequence sequence = DOTween.Sequence();
+
+        for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
         {
-            Tween tween = wall.GetComponent<Renderer>().material.DOFloat(enabled ? 1f : 0f, "_OpacityFactor", _wallFadeDuration);
+            Tween tween = _wallMaterials[wallIndex].DOFloat(enabled ? 1f : 0f, "_OpacityFactor", _wallFadeDuration);
+
+            Collider wall = _walls[wallIndex];
 
             if (enabled)
             {
@@ -149,21 +163,24 @@ public class Elevator : MonoBehaviour
             {
                 tween.OnComplete(() => wall.enabled = false);
             }
+
+            sequence.Join(tween);
         }
     }
 
     private void Awake()
     {
+        for (int wallIndex = 0; wallIndex < _walls.Count; wallIndex++)
+        {
+            Material wallMaterial = _walls[wallIndex].GetComponent<Renderer>().material;
+            _wallMaterials.Add(wallMaterial);
+            wallMaterial.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);
+            wallMaterial.SetFloat("_OpacityFactor", 0f);
+            wallMaterial.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+        }
+
         SetWallsVisible(false);
         SetWallCollidersEnabled(false);
-
-        foreach (Collider wall in _walls)
-        {
-            Material material = wall.GetComponent<Renderer>().material;
-            material.SetFloat("_TriggeringCameraAngle", _minimumCameraAngleToTrigger);
-            material.SetFloat("_OpacityFactor", 0f);
-            material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
-        }
     }
 
     private void Update()
