@@ -13,6 +13,8 @@ public class KeyToggler : MonoBehaviour
     private Vector3 _keyStoredPosition;
     private bool _keyIsOut;
 
+    public bool KeyIsOut => _keyIsOut;
+
     private void PutKeyOut()
     {
         if (_keyTween.IsActive())

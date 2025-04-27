@@ -18,7 +18,12 @@ public class KeyMatcher : MonoBehaviour
 
     public void CheckMatch()
     {
-        //check KeyActivator (input)
+        if (!Game.KeyToggler.KeyIsOut)
+        {
+            Game.KeyMatchFeedback.SetFeedbackIntensity(0f, this);
+
+            return;
+        }
 
         if (_isValidated)
         {
@@ -48,7 +53,7 @@ public class KeyMatcher : MonoBehaviour
             );
 
         Vector3 flatShapeToCameraDirection = (flatCameraPosition - flatShapePosition).normalized;
-        Vector3 flatShapeForward = new(0f, _shapeCenter.forward.y, _shapeCenter.forward.z);
+        Vector3 flatShapeForward = new(_shapeCenter.forward.x, 0f, _shapeCenter.forward.z);
         float angleOffsetFromShapeForward = Vector3.Angle(flatShapeToCameraDirection, flatShapeForward);
         _angleIsValid = angleOffsetFromShapeForward < _angleTolerance;
         keyNearMatchScore += Mathf.Clamp01(math.remap(_angleTolerance * (1f + _almostRatios.Angle), _angleTolerance, 0f, 1f, angleOffsetFromShapeForward));
@@ -75,7 +80,7 @@ public class KeyMatcher : MonoBehaviour
         Gizmos.DrawSphere(_shapeCenter.position, radius: 0.05f);
 
         Gizmos.color = _angleIsValid && _distanceIsValid ? Color.green : Color.red;
-        Vector3 flatShapePosition = new(_shapeCenter.position.x, 0f, _shapeCenter.position.z);
+        Vector3 flatShapePosition = new(_shapeCenter.position.x, transform.position.y, _shapeCenter.position.z);
         Vector3 leftEdgeEnd = flatShapePosition + Quaternion.AngleAxis(-_angleTolerance, Vector3.up) * new Vector3(_shapeCenter.forward.x, 0f, _shapeCenter.forward.z).normalized * _distanceMinMax.y;
         Vector3 rightEdgeEnd = flatShapePosition + Quaternion.AngleAxis(_angleTolerance, Vector3.up) * new Vector3(_shapeCenter.forward.x, 0f, _shapeCenter.forward.z).normalized * _distanceMinMax.y;
         Gizmos.DrawLine(flatShapePosition, leftEdgeEnd);

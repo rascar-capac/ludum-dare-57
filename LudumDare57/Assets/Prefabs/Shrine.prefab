@@ -79,9 +79,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crystalIndex: 0
   _shapeCenter: {fileID: 1886876886636024072}
-  _distanceMinMax: {x: 3.5, y: 4.5}
+  _distanceMinMax: {x: 1.5, y: 1.7}
   _aimTolerance: 1
-  _angleTolerance: 7
+  _angleTolerance: 8
   _almostRatios:
     Distance: 1
     Aim: 10
@@ -141,8 +141,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 57860955091862586, guid: 62438e04dec53f74ca793f79747ddae1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7751963157378884277}
   m_SourcePrefab: {fileID: 100100000, guid: 62438e04dec53f74ca793f79747ddae1, type: 3}
+--- !u!1 &2739248888120499729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 57860955091862586, guid: 62438e04dec53f74ca793f79747ddae1, type: 3}
+  m_PrefabInstance: {fileID: 2796265202106227243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7751963157378884277
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739248888120499729}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.85000014
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!4 &3262880973158483115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 830422202610212480, guid: 62438e04dec53f74ca793f79747ddae1, type: 3}

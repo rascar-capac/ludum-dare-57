@@ -748,6 +748,7 @@ MonoBehaviour:
   _camera: {fileID: 456006711}
   _keyMatchManager: {fileID: 950700078}
   _keyMatchFeedback: {fileID: 525432120}
+  _keyToggler: {fileID: 1664762056}
   _levelManager: {fileID: 950700079}
   _elevator: {fileID: 2056478568}
 --- !u!4 &950700077
@@ -1083,6 +1084,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ef75c23f03e45644bde4f144dd09d22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1664762056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6354465981245197519, guid: 5245bd9b7dee3234ebe0939bec4091f9, type: 3}
+  m_PrefabInstance: {fileID: 525432118}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1623f4cc48986f04c9443c1302f35720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1865889076 stripped
