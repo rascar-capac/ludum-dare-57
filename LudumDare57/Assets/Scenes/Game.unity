@@ -815,6 +815,7 @@ MonoBehaviour:
   _elevatorBottomTeleportationAnchor: {fileID: 534147440}
   _startingPlayerLevelIndex: 0
   _startingPlayerSection: 0
+  _positiveLevelsAreAllowed: 0
 --- !u!1001 &962611309
 PrefabInstance:
   m_ObjectHideFlags: 0

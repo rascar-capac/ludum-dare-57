@@ -447,19 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe78dab82e8716c458503cc6ad3aab88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDetectionDelay: 1.5
-  _levelHeights:
-  - 4
-  - 4
-  - 4
-  - 4
-  - 4
-  - 24
-  - 4
-  - 4
-  - 4
-  - 4
-  _startingLevelIndex: 0
+  _triggeringDelay: 1.5
   _metersPerSecond: 2
   _easeType: 10
   _collider: {fileID: 8878887771164973253}
@@ -712,15 +700,7 @@ PrefabInstance:
       value: ElevatorWalls
       objectReference: {fileID: 0}
     - target: {fileID: 6847302475417067381, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6847302475417067381, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6847302475417067381, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}
-      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847302475417067381, guid: 6f5c3d86943a4714289893e6c12fb6ee, type: 3}

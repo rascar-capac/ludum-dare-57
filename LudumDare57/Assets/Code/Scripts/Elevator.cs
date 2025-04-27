@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
-    [SerializeField] private float _playerDetectionDelay;
+    [SerializeField] private float _triggeringDelay;
     [SerializeField] private float _metersPerSecond;
     [SerializeField] private Ease _easeType;
     [SerializeField] private Collider _collider;
@@ -13,10 +13,10 @@ public class Elevator : MonoBehaviour
     [SerializeField] private Renderer _wallRenderer;
     [SerializeField] private float _wallFadeDuration;
 
-    private float _playerTimer;
+    private float _triggeringTimer;
     private bool _playerIsInElevator;
-    private bool _wasLookingUp;
-    private bool _wasLookingDown;
+    private bool _wasTriggeringUpwards;
+    private bool _wasTriggeringDownwards;
     private bool _isMoving;
 
     private void MoveUp()
@@ -35,6 +35,9 @@ public class Elevator : MonoBehaviour
             .Join(transform.DOLocalMoveY(transform.position.y + height, height / _metersPerSecond).SetEase(_easeType))
             .Join(Game.Player.DOLocalMoveY(Game.Player.position.y + height, height / _metersPerSecond).SetEase(_easeType))
             .OnComplete(Stop);
+
+        _wallRenderer.material.SetInteger("_CanGoUp", 1);
+        _wallRenderer.material.SetInteger("_CanGoDown", 1);
     }
 
     private void MoveDown()
@@ -47,6 +50,8 @@ public class Elevator : MonoBehaviour
         Game.Player.GetComponent<CharacterController>().enabled = false;
 
         _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
+        _wallRenderer.material.SetInteger("_CanGoUp", 1);
+        _wallRenderer.material.SetInteger("_CanGoDown", 1);
 
         DOTween.Sequence()
             .Join(transform.DOLocalMoveY(transform.position.y - height, height / _metersPerSecond).SetEase(_easeType))
@@ -61,6 +66,8 @@ public class Elevator : MonoBehaviour
         SetWallCollidersActive(false);
 
         _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 1f);
+        _wallRenderer.material.SetInteger("_CanGoUp", Game.LevelManager.CanGoUp() ? 1 : 0);
+        _wallRenderer.material.SetInteger("_CanGoDown", Game.LevelManager.CanGoDown() ? 1 : 0);
     }
 
     private void CheckPlayerPosition()
@@ -79,42 +86,42 @@ public class Elevator : MonoBehaviour
                 SetWallsVisible(true);
             }
 
-            bool isLookingUp = Game.Camera.localEulerAngles.x > 180f && Game.Camera.localEulerAngles.x < 360f - _minimumCameraAngleToTrigger;
-            bool isLookingDown = Game.Camera.localEulerAngles.x < 180f && Game.Camera.localEulerAngles.x > _minimumCameraAngleToTrigger;
+            bool isTriggeringUpwards = Game.LevelManager.CanGoUp() && Game.Camera.localEulerAngles.x > 180f && Game.Camera.localEulerAngles.x < 360f - _minimumCameraAngleToTrigger;
+            bool isTriggeringDownwards = Game.LevelManager.CanGoDown() && Game.Camera.localEulerAngles.x < 180f && Game.Camera.localEulerAngles.x > _minimumCameraAngleToTrigger;
 
-            if (isLookingUp && !_wasLookingUp || isLookingDown && !_wasLookingDown)
+            if (isTriggeringUpwards && !_wasTriggeringUpwards || isTriggeringDownwards && !_wasTriggeringDownwards)
             {
-                _playerTimer = 0f;
+                _triggeringTimer = 0f;
 
                 _wallRenderer.material.SetFloat("_DirectionFeedback_FlashStartTime", Time.time);
             }
 
-            if (isLookingDown || isLookingUp)
+            if (isTriggeringDownwards || isTriggeringUpwards)
             {
-                _playerTimer += Time.deltaTime;
+                _triggeringTimer += Time.deltaTime;
 
-                if (_playerTimer > _playerDetectionDelay)
+                if (_triggeringTimer > _triggeringDelay)
                 {
-                    if (isLookingDown)
+                    if (isTriggeringDownwards)
                     {
                         MoveDown();
                     }
-                    else if (isLookingUp)
+                    else if (isTriggeringUpwards)
                     {
                         MoveUp();
                     }
 
-                    _playerTimer = 0f;
+                    _triggeringTimer = 0f;
                 }
             }
 
-            _wasLookingUp = isLookingUp;
-            _wasLookingDown = isLookingDown;
+            _wasTriggeringUpwards = isTriggeringUpwards;
+            _wasTriggeringDownwards = isTriggeringDownwards;
         }
         else if (_playerIsInElevator)
         {
             _playerIsInElevator = false;
-            _playerTimer = 0f;
+            _triggeringTimer = 0f;
             SetWallsVisible(false);
         }
     }
@@ -149,6 +156,9 @@ public class Elevator : MonoBehaviour
             _wallRenderer.material.SetFloat("_OpacityFactor", 0f);
             _wallRenderer.material.SetFloat("_DirectionFeedback_OpacityFactor", 0f);
         }
+
+        _wallRenderer.material.SetInteger("_CanGoUp", Game.LevelManager.CanGoUp() ? 1 : 0);
+        _wallRenderer.material.SetInteger("_CanGoDown", Game.LevelManager.CanGoDown() ? 1 : 0);
 
         SetWallsVisible(false);
         SetWallCollidersActive(false);

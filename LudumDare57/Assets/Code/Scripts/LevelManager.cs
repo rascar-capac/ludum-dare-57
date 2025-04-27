@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform _elevatorBottomTeleportationAnchor;
     [SerializeField] private int _startingPlayerLevelIndex;
     [SerializeField] private int _startingPlayerSection;
+    [SerializeField] private bool _positiveLevelsAreAllowed;
 
     private int _currentPlayerMetaLevel;
     private int _currentPlayerSection;
@@ -29,6 +30,16 @@ public class LevelManager : MonoBehaviour
     public Level GetLevel(int index)
     {
         return _levels[index];
+    }
+
+    public bool CanGoUp()
+    {
+        return _positiveLevelsAreAllowed || _currentPlayerMetaLevel != 0 || _currentPlayerSection != 0;
+    }
+
+    public bool CanGoDown()
+    {
+        return true;
     }
 
     private void RefreshCurrentPlayerLevelAndSection(int movement)
