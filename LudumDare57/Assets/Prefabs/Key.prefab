@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1554198723534008337}
   - component: {fileID: 6157430841516304727}
   - component: {fileID: 4355273215639814504}
-  m_Layer: 0
+  - component: {fileID: 7626100619954401397}
+  m_Layer: 8
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6068839905926441038}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -77,6 +78,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7626100619954401397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068839905926441038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1623f4cc48986f04c9443c1302f35720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggleInput: {fileID: -468907198762535146, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _keyOutAnchor: {fileID: 0}
+  _transitionDuration: 0.3
+  _transitionEase: 15
 --- !u!1001 &3717149418538849039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,10 +146,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visuals
       objectReference: {fileID: 0}
-    - target: {fileID: 5269937127626395803, guid: 4e051c1459bca2245b5777ddfc5adc37, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 959b883f74d478f45b5f64154f18ba79, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

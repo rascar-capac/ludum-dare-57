@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6083639447493736040}
   - component: {fileID: 8679002048088717565}
   - component: {fileID: 2201014121478287009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MatchVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,13 +4885,21 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1c64d35dc9052c345b57ba68998c3db1, type: 2}
+    - target: {fileID: -5117700066308340382, guid: 395068905098ffc4a892ddc4877c39ad, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -2571118854743697038, guid: 395068905098ffc4a892ddc4877c39ad, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f547891185c4c7d40af01837ebf88bda, type: 2}
+      objectReference: {fileID: 2100000, guid: 959b883f74d478f45b5f64154f18ba79, type: 2}
     - target: {fileID: 919132149155446097, guid: 395068905098ffc4a892ddc4877c39ad, type: 3}
       propertyPath: m_Name
       value: Key
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 395068905098ffc4a892ddc4877c39ad, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

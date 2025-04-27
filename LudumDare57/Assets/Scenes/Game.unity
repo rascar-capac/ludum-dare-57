@@ -300,14 +300,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Elevator
       objectReference: {fileID: 0}
-    - target: {fileID: 8878312976300058911, guid: ad334481511efa940a4090ba3b1faad1, type: 3}
-      propertyPath: _metersPerSecond
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8878312976300058911, guid: ad334481511efa940a4090ba3b1faad1, type: 3}
-      propertyPath: _playerDetectionDelay
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
