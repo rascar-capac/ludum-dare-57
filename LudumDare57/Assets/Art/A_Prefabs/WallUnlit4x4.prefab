@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7844932033405893839, guid: e66157d14bdb4b443bb23ae1ce5bdfe9, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8637394388450942234, guid: e66157d14bdb4b443bb23ae1ce5bdfe9, type: 3}
       propertyPath: m_Name
       value: WallUnlit4x4
